@@ -1,8 +1,8 @@
 {{ $currentMenuEntry := .Scratch.Get "currentMenuEntry" }}
 {{ $isCurrent := eq .Permalink ($currentMenuEntry.URL | absURL | printf "%s") }}
-{{ $isBlog := eq .Section "blog"}}
+{{ $isCurrentSection := and (in $currentMenuEntry.URL .Section) (ne .Section "") }}
 
-<a {{ if or $isCurrent (and $isBlog (eq $currentMenuEntry.Name "Blog")) }}class="current"{{ end }} title="{{ $currentMenuEntry.Name }}" href="{{ $currentMenuEntry.URL | relURL}}">
+<a {{ if or $isCurrent $isCurrentSection }}class="current"{{ end }} title="{{ $currentMenuEntry.Name }}" href="{{ $currentMenuEntry.URL | relURL}}">
 	{{ $currentMenuEntry.Pre }}
 	{{ $currentMenuEntry.Name }}
 </a>
